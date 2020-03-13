@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Implementation of hook_block_info().
+ */
+function hcpss_site_message_block_info() {
+  $blocks = array();
+
+  $blocks['hcpss_site_message'] = array(
+    'info' => t('HCPSS Site Message'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implementation of hook_block_view().
+ */
+function hcpss_site_message_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'hcpss_site_message':
+      $block['content'] = _hcpss_site_message_block_content();
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implementation of hook_page_build().
+ */
+function hcpss_site_message_page_build(&$page) {
+  $block = module_invoke('hcpss_site_message', 'block_view', 'hcpss_site_message');
+  $blocks['hcpss_site_message'] = array('#markup' => $block['content']);
+
+  $region = 'content';
+  if (isset($page[$region])) {
+    $page[$region] = array_merge($blocks, $page[$region]);
+  }
+  else {
+    $page[$region] = $blocks;
+  }
+}
+
+/**
+ * Generate the block content.
+ *
+ * @return string
+ */
+function _hcpss_site_message_block_content() {
+  return '<div class="well">PUT YOUR MESSAGE HERE</div>';
+}

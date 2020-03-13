@@ -1,0 +1,5 @@
+name = HCPSS Site Message
+description = Display a message on the site.
+core = 7.x
+package = HCPSS
+version = "7.x-1.0"
